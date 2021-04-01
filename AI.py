@@ -8,6 +8,10 @@ class Battleship:
         self.gameBoardPD = np.empty((self.gameSize,self.gameSize), np.str)
         self.gameBoardCA = np.empty((self.gameSize,self.gameSize), np.str)
         self.gameBoardCD = np.empty((self.gameSize,self.gameSize), np.str)
+        self.shipsPArr = [5, 4, 3, 3, 2]
+        self.shipsCArr = [5, 4, 3, 3, 2]
+        self.shipsCDes = []
+        self.shipsPDes = []
 
         for i in range(self.gameSize):
             for j in range(self.gameSize):
@@ -26,6 +30,7 @@ class Battleship:
                 self.gameBoardCD[i,j] = UI.ocean
 
     def initialSetup(self):
+        UI.printBoard(self.gameBoardPD, self.gameSize)
         pass
 
     def aiSetup(self):
@@ -33,10 +38,7 @@ class Battleship:
 
 
 def startGame(game):
-    UI.clearScreen()
     UI.welcome()
-    UI.clearScreen()
     game.aiSetup()
     game.initialSetup()
-    UI.printgameBoard(game)
     pass

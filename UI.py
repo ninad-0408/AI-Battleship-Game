@@ -14,6 +14,7 @@ def clearScreen():
     os.system('cls')
 
 def welcome():
+    clearScreen()
     text = '                 *****************WELCOME TO BATTLESHIP*****************               '
     print(Back.YELLOW + Fore.BLACK + text + Style.RESET_ALL)
     print('\n')
@@ -44,6 +45,7 @@ def printRules():
     print(Fore.RESET)
 
 def printgameBoard(game):
+    clearScreen()
     print('    ',end='')
     for i in range(0,game.gameSize):
         print(Back.WHITE + Fore.BLACK + str(i),end=' ' + Style.RESET_ALL)
@@ -63,9 +65,9 @@ def printgameBoard(game):
             elif game.gameBoardPA[i,j] == ship:
                 print(Fore.MAGENTA + game.gameBoardPA[i,j],end=' ' + Fore.RESET)
             elif game.gameBoardPA[i,j] == hit:
-                print(Fore.RED + game.gameBoardPA[i,j],end=' ' + Fore.RESET)
-            elif game.gameBoardPA[i,j] == miss:
                 print(Fore.GREEN + game.gameBoardPA[i,j],end=' ' + Fore.RESET)
+            elif game.gameBoardPA[i,j] == miss:
+                print(Fore.RED + game.gameBoardPA[i,j],end=' ' + Fore.RESET)
 
         print('||',end=' ')
         print(Back.WHITE + Fore.BLACK + ' ' + chr(ord('A')+i) + ' ' + Style.RESET_ALL, end=' ')
@@ -81,3 +83,29 @@ def printgameBoard(game):
                 print(Fore.GREEN + game.gameBoardPD[i,j],end=' ' + Fore.RESET)
             
         print('')
+
+def printBoard(gameBoard, gameSize):
+    clearScreen()
+    print(Fore.CYAN + 'This is your current Base\n' + Fore.RESET)
+    print('    ',end='')
+    for i in range(0,gameSize):
+        print(Back.WHITE + Fore.BLACK + str(i),end=' ' + Style.RESET_ALL)
+    
+    print('')
+
+    for i in range(gameSize):
+        print(Back.WHITE + Fore.BLACK + ' ' + chr(ord('A')+i) + ' ' + Style.RESET_ALL, end=' ')
+
+        for j in range(gameSize):
+            if gameBoard[i,j] == ocean:
+                print(Fore.BLUE + gameBoard[i,j],end=' ' + Fore.RESET)
+            elif gameBoard[i,j] == ship:
+                print(Fore.MAGENTA + gameBoard[i,j],end=' ' + Fore.RESET)
+            elif gameBoard[i,j] == hit:
+                print(Fore.GREEN + gameBoard[i,j],end=' ' + Fore.RESET)
+            elif gameBoard[i,j] == miss:
+                print(Fore.RED + gameBoard[i,j],end=' ' + Fore.RESET)
+        
+        print('')
+
+    print('\n')
