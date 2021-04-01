@@ -1,7 +1,6 @@
 import os
 import colorama
 from colorama import Fore, Back, Style
-from numpy.testing._private.utils import decorate_methods
 
 colorama.init()
 
@@ -63,7 +62,7 @@ def printgameBoard(game):
             if game.gameBoardPA[i,j] == ocean:
                 print(Fore.BLUE + game.gameBoardPA[i,j],end=' ' + Fore.RESET)
             elif game.gameBoardPA[i,j] == ship:
-                print(Fore.MAGENTA + game.gameBoardPA[i,j],end=' ' + Fore.RESET)
+                print(Fore.YELLOW + game.gameBoardPA[i,j],end=' ' + Fore.RESET)
             elif game.gameBoardPA[i,j] == hit:
                 print(Fore.GREEN + game.gameBoardPA[i,j],end=' ' + Fore.RESET)
             elif game.gameBoardPA[i,j] == miss:
@@ -76,7 +75,7 @@ def printgameBoard(game):
             if game.gameBoardPD[i,j] == ocean:
                 print(Fore.BLUE + game.gameBoardPD[i,j],end=' ' + Fore.RESET)
             elif game.gameBoardPD[i,j] == ship:
-                print(Fore.MAGENTA + game.gameBoardPD[i,j],end=' ' + Fore.RESET)
+                print(Fore.YELLOW + game.gameBoardPD[i,j],end=' ' + Fore.RESET)
             elif game.gameBoardPD[i,j] == hit:
                 print(Fore.RED + game.gameBoardPD[i,j],end=' ' + Fore.RESET)
             elif game.gameBoardPD[i,j] == miss:
@@ -100,7 +99,7 @@ def printBoard(gameBoard, gameSize):
             if gameBoard[i,j] == ocean:
                 print(Fore.BLUE + gameBoard[i,j],end=' ' + Fore.RESET)
             elif gameBoard[i,j] == ship:
-                print(Fore.MAGENTA + gameBoard[i,j],end=' ' + Fore.RESET)
+                print(Fore.YELLOW + gameBoard[i,j],end=' ' + Fore.RESET)
             elif gameBoard[i,j] == hit:
                 print(Fore.GREEN + gameBoard[i,j],end=' ' + Fore.RESET)
             elif gameBoard[i,j] == miss:
