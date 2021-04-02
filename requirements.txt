@@ -1,3 +1,4 @@
 colorama
 os
 numpy
+random

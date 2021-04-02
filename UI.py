@@ -44,7 +44,6 @@ def printRules():
     print(Fore.RESET)
 
 def printgameBoard(game):
-    clearScreen()
     print('    ',end='')
     for i in range(0,game.gameSize):
         print(Back.WHITE + Fore.BLACK + str(i),end=' ' + Style.RESET_ALL)
