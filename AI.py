@@ -1,5 +1,6 @@
 import UI
 import numpy as np
+import random
 import colorama
 from colorama import Fore, Back, Style
 
@@ -86,20 +87,20 @@ class Battleship:
 
                 check = 1
 
-                if row < 'A' or row > 'J':
+                if row < 'A' or row > chr(ord('J')+self.gameSize):
                     print(Fore.RED + 'Invalid row charecter...' + Fore.RESET)
                     check = 0
                 
-                if check and (col < 0 or col > self.gameSize - 1 ):
+                if check and (col < 0 or col > self.gameSize):
                     print(Fore.RED + 'Invalid column index entered...' + Fore.RESET)
                     check = 0
 
                 if self.shipsP[i].orientation == 'h' and check:
-                    if col + self.shipsP[i].size > self.gameSize:
+                    if col + self.shipsP[i].size >= self.gameSize:
                         print(Fore.RED + 'The ship is placed outside of given area. Please try again...')
                         check = 0
                     
-                    else:
+                    elif check:
                         for j in range(col, col + self.shipsP[i].size):
                             if self.gameBoardPD[ord(row)-ord('A'), j] == UI.ship:
                                 print(Fore.RED + self.shipsP[i].name + ' is overlapping another ship. Please try again...')
@@ -113,11 +114,11 @@ class Battleship:
                         UI.printBoard(self.gameBoardPD, self.gameSize)
 
                 elif self.shipsP[i].orientation == 'v' and check:
-                    if ord(row) - ord('A') + self.shipsP[i].size > self.gameSize:
+                    if ord(row) - ord('A') + self.shipsP[i].size >= self.gameSize:
                         print(Fore.RED + 'The ship is placed outside of given area. Please try again...')
                         check = 0
                     
-                    else:
+                    elif check:
                         for j in range(ord(row) - ord('A'), ord(row) - ord('A') + self.shipsP[i].size):
                             if self.gameBoardPD[j, col] == UI.ship:
                                 print(Fore.RED + self.shipsP[i].name + ' is overlapping another ship. Please try again...')
@@ -137,7 +138,51 @@ class Battleship:
         
 
     def aiSetup(self):
-        pass
+        for i in range(5):
+            var = random.randint(0,1)
+            if var == 1:
+                self.shipsC[i].orientation = 'v'
+            else:
+                self.shipsC[i].orientation = 'h'
+                    
+            while 1:
+                row = random.randint(0,9)
+                col = random.randint(0,9)
+
+                check = 1
+
+                if self.shipsC[i].orientation == 'h' and check:
+                    if col + self.shipsC[i].size >= self.gameSize:
+                        check = 0
+                    
+                    elif check:
+                        for j in range(col, col + self.shipsC[i].size):
+                            if self.gameBoardCD[row, j] == UI.ship:
+                                check = 0
+                                break
+                    
+                    if check:
+                        for j in range(col, col + self.shipsP[i].size):
+                            self.gameBoardCD[row, j] = UI.ship
+                            self.shipsC[i].location.append([row, j])
+
+                elif self.shipsC[i].orientation == 'v' and check:
+                    if row + self.shipsC[i].size >= self.gameSize:
+                        check = 0
+                    
+                    elif check:
+                        for j in range(row, row + self.shipsC[i].size):
+                            if self.gameBoardCD[j, col] == UI.ship:
+                                check = 0
+                                break
+                    
+                    if check:
+                        for j in range(row, row + self.shipsC[i].size):
+                            self.gameBoardCD[j, col] = UI.ship
+                            self.shipsC[i].location.append([j, col])
+                
+                if check:
+                    break
 
 
 def startGame(game):
