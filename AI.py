@@ -212,7 +212,6 @@ class Battleship:
 
             if check:
                 break
-        print(len(self.aiMoves))
     
     def aiLogic(self,current,direction):
 
@@ -355,10 +354,10 @@ class Battleship:
                 for j in range(5):
                     if [row, col] in self.shipsC[j].location:
                         self.shipsC[j].location.remove([row, col])
-                        print(Fore.GREEN + 'Ohh Bloody Hell!!! You hit my ' + self.shipsC[j].name + '.' + Fore.RESET)
+                        print(Fore.GREEN + 'Ohh!!! You hit my ' + self.shipsC[j].name + '.' + Fore.RESET)
                         if len(self.shipsC[j].location) == 0:
                             self.shipsC[j].isDestroyed = True
-                            print(Fore.GREEN + 'Ohh Bloody Hell!!! You sink my ' + self.shipsC[j].name + '.' + Fore.RESET)
+                            print(Fore.GREEN + 'Ohh!!! You sink my ' + self.shipsC[j].name + '.' + Fore.RESET)
                         break
                         
                 self.gameBoardPA[row, col] = UI.hit
@@ -397,4 +396,4 @@ def startGame(game):
     game.aiSetup()
     game.initialSetup()
     game.aiPlay()
-    # game.playerPlay()
+    game.playerPlay()
