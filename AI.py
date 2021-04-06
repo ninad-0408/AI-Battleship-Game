@@ -201,13 +201,11 @@ class Battleship:
             if self.gameBoardPD[row, col] == UI.ship:
                 for i in range(5):
                     if [row, col] in self.shipsP[i].location:
-                        rem=i
-                self.aiLogic([row, col], 0, rem)
-                for i in range(5):
-                    if [row, col] in self.shipsP[i].location:
                         self.shipsP[i].location.remove([row, col])
                         if len(self.shipsP[i].location) == 0:
                             self.shipsP[i].isDestroyed = True
+                        if not self.shipsP[i].isDestroyed:
+                            self.aiLogic([row, col], 0, i)
                         break
             
             check = True
@@ -228,101 +226,93 @@ class Battleship:
                 self.aiMoves.append([current[0]-1, current[1]])
                 dire = 1
                 if self.gameBoardPD[current[0]-1, current[1]] == UI.ship:
-                    for i in range(5):
-                        if [current[0]-1, current[1]] in self.shipsP[i].location:
+                    if [current[0]-1, current[1]] in self.shipsP[rem].location:
+                        self.shipsP[rem].location.remove([current[0]-1, current[1]])
+                        if len(self.shipsP[rem].location) == 0:
+                            self.shipsP[rem].isDestroyed = True
+                        if not self.shipsP[rem].isDestroyed:
                             self.aiLogic([current[0]-1, current[1]], dire, rem)
-                            self.shipsP[i].location.remove([current[0]-1, current[1]])
-                            if len(self.shipsP[i].location) == 0:
-                                self.shipsP[i].isDestroyed = True
-                            break
             
-            if current[0]+1<self.gameSize and [current[0]+1, current[1]] not in self.aiMoves and len(self.shipsP[rem].location)-1 > 0:
+            if current[0]+1<self.gameSize and [current[0]+1, current[1]] not in self.aiMoves and not self.shipsP[rem].isDestroyed:
                 self.aiMoves.append([current[0]+1, current[1]])
                 dire = 2
                 if self.gameBoardPD[current[0]+1, current[1]] == UI.ship:
-                    for i in range(5):
-                        if [current[0]+1, current[1]] in self.shipsP[i].location:
+                    if [current[0]+1, current[1]] in self.shipsP[rem].location:
+                        self.shipsP[rem].location.remove([current[0]+1, current[1]])
+                        if len(self.shipsP[rem].location) == 0:
+                            self.shipsP[rem].isDestroyed = True
+                        if not self.shipsP[rem].isDestroyed:
                             self.aiLogic([current[0]+1, current[1]], dire, rem)
-                            self.shipsP[i].location.remove([current[0]+1, current[1]])
-                            if len(self.shipsP[i].location) == 0:
-                                self.shipsP[i].isDestroyed = True
-                            break
             
-            if current[1]-1>=0 and [current[0], current[1]-1] not in self.aiMoves and len(self.shipsP[rem].location)-1 > 0:
+            if current[1]-1>=0 and [current[0], current[1]-1] not in self.aiMoves and not self.shipsP[rem].isDestroyed:
                 self.aiMoves.append([current[0], current[1]-1])
                 dire = 3
                 if self.gameBoardPD[current[0], current[1]-1] == UI.ship:
-                    for i in range(5):
-                        if [current[0], current[1]-1] in self.shipsP[i].location:
+                    if [current[0], current[1]-1] in self.shipsP[rem].location:
+                        self.shipsP[rem].location.remove([current[0], current[1]-1])
+                        if len(self.shipsP[rem].location) == 0:
+                            self.shipsP[rem].isDestroyed = True
+                        if not self.shipsP[rem].isDestroyed:
                             self.aiLogic([current[0], current[1]-1], dire, rem)
-                            self.shipsP[i].location.remove([current[0], current[1]-1])
-                            if len(self.shipsP[i].location) == 0:
-                                self.shipsP[i].isDestroyed = True
-                            break
             
-            if current[1]+1<self.gameSize and [current[0], current[1]+1] not in self.aiMoves and len(self.shipsP[rem].location)-1 > 0:
+            if current[1]+1<self.gameSize and [current[0], current[1]+1] not in self.aiMoves and not self.shipsP[rem].isDestroyed:
                 self.aiMoves.append([current[0], current[1]+1])
                 dire = 4
                 if self.gameBoardPD[current[0], current[1]+1] == UI.ship:
-                    for i in range(5):
-                        if [current[0], current[1]+1] in self.shipsP[i].location:
+                    if [current[0], current[1]+1] in self.shipsP[rem].location:
+                        self.shipsP[rem].location.remove([current[0], current[1]+1])
+                        if len(self.shipsP[rem].location) == 0:
+                            self.shipsP[rem].isDestroyed = True
+                        if not self.shipsP[rem].isDestroyed:
                             self.aiLogic([current[0], current[1]+1], dire, rem)
-                            self.shipsP[i].location.remove([current[0], current[1]+1])
-                            if len(self.shipsP[i].location) == 0:
-                                self.shipsP[i].isDestroyed = True
-                            break
         
         elif direction == 1:
             if current[0]-1>=0 and [current[0]-1, current[1]] not in self.aiMoves:
                 self.aiMoves.append([current[0]-1, current[1]])
                 dire = 1
                 if self.gameBoardPD[current[0]-1, current[1]] == UI.ship:
-                    for i in range(5):
-                        if [current[0]-1, current[1]] in self.shipsP[i].location:
+                    if [current[0]-1, current[1]] in self.shipsP[rem].location:
+                        self.shipsP[rem].location.remove([current[0]-1, current[1]])
+                        if len(self.shipsP[rem].location) == 0:
+                            self.shipsP[rem].isDestroyed = True
+                        if not self.shipsP[rem].isDestroyed:
                             self.aiLogic([current[0]-1, current[1]], dire, rem)
-                            self.shipsP[i].location.remove([current[0]-1, current[1]])
-                            if len(self.shipsP[i].location) == 0:
-                                self.shipsP[i].isDestroyed = True
-                            break
         
         elif direction == 2:
             if current[0]+1<self.gameSize and [current[0]+1, current[1]] not in self.aiMoves:
                 self.aiMoves.append([current[0]+1, current[1]])
                 dire = 2
                 if self.gameBoardPD[current[0]+1, current[1]] == UI.ship:
-                    for i in range(5):
-                        if [current[0]+1, current[1]] in self.shipsP[i].location:
+                    if [current[0]+1, current[1]] in self.shipsP[rem].location:
+                        self.shipsP[rem].location.remove([current[0]+1, current[1]])
+                        if len(self.shipsP[rem].location) == 0:
+                            self.shipsP[rem].isDestroyed = True
+                        if not self.shipsP[rem].isDestroyed:
                             self.aiLogic([current[0]+1, current[1]], dire, rem)
-                            self.shipsP[i].location.remove([current[0]+1, current[1]])
-                            if len(self.shipsP[i].location) == 0:
-                                self.shipsP[i].isDestroyed = True
-                            break
         
         elif direction == 3:
              if current[1]-1>=0 and [current[0], current[1]-1] not in self.aiMoves:
                 self.aiMoves.append([current[0], current[1]-1])
                 dire = 3
                 if self.gameBoardPD[current[0], current[1]-1] == UI.ship:
-                    for i in range(5):
-                        if [current[0], current[1]-1] in self.shipsP[i].location:
+                    if [current[0], current[1]-1] in self.shipsP[rem].location:
+                        self.shipsP[rem].location.remove([current[0], current[1]-1])
+                        if len(self.shipsP[rem].location) == 0:
+                            self.shipsP[rem].isDestroyed = True
+                        if not self.shipsP[rem].isDestroyed:
                             self.aiLogic([current[0], current[1]-1], dire, rem)
-                            self.shipsP[i].location.remove([current[0], current[1]-1])
-                            if len(self.shipsP[i].location) == 0:
-                                self.shipsP[i].isDestroyed = True
-                            break
         
         elif direction == 4:
             if current[1]+1<self.gameSize and [current[0], current[1]+1] not in self.aiMoves:
                 self.aiMoves.append([current[0], current[1]+1])
                 dire = 4
                 if self.gameBoardPD[current[0], current[1]+1] == UI.ship:
-                    for i in range(5):
-                        if [current[0], current[1]+1] in self.shipsP[i].location:
+                    if [current[0], current[1]+1] in self.shipsP[rem].location:
+                        self.shipsP[rem].location.remove([current[0], current[1]+1])
+                        if len(self.shipsP[rem].location) == 0:
+                            self.shipsP[rem].isDestroyed = True
+                        if not self.shipsP[rem].isDestroyed:
                             self.aiLogic([current[0], current[1]+1], dire, rem)
-                            self.shipsP[i].location.remove([current[0], current[1]+1])
-                            if len(self.shipsP[i].location) == 0:
-                                self.shipsP[i].isDestroyed = True
-                            break
        
       
     def playerPlay(self):
