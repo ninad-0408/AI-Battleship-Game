@@ -199,7 +199,10 @@ class Battleship:
             self.aiMoves.append([row,col])
 
             if self.gameBoardPD[row, col] == UI.ship:
-                self.aiLogic([row, col], 0)
+                for i in range(5):
+                    if [row, col] in self.shipsP[i].location:
+                        rem=i
+                self.aiLogic([row, col], 0, rem)
                 for i in range(5):
                     if [row, col] in self.shipsP[i].location:
                         self.shipsP[i].location.remove([row, col])
@@ -216,8 +219,9 @@ class Battleship:
 
             if check:
                 break
+        print(len(self.aiMoves))
     
-    def aiLogic(self,current,direction):
+    def aiLogic(self,current,direction,rem):
 
         if direction == 0:
             if current[0]-1>=0 and [current[0]-1, current[1]] not in self.aiMoves:
@@ -226,43 +230,43 @@ class Battleship:
                 if self.gameBoardPD[current[0]-1, current[1]] == UI.ship:
                     for i in range(5):
                         if [current[0]-1, current[1]] in self.shipsP[i].location:
-                            self.aiLogic([current[0]-1, current[1]], dire)
+                            self.aiLogic([current[0]-1, current[1]], dire, rem)
                             self.shipsP[i].location.remove([current[0]-1, current[1]])
                             if len(self.shipsP[i].location) == 0:
                                 self.shipsP[i].isDestroyed = True
                             break
             
-            if current[0]+1<self.gameSize and [current[0]+1, current[1]] not in self.aiMoves:
+            if current[0]+1<self.gameSize and [current[0]+1, current[1]] not in self.aiMoves and len(self.shipsP[rem].location)-1 > 0:
                 self.aiMoves.append([current[0]+1, current[1]])
                 dire = 2
                 if self.gameBoardPD[current[0]+1, current[1]] == UI.ship:
                     for i in range(5):
                         if [current[0]+1, current[1]] in self.shipsP[i].location:
-                            self.aiLogic([current[0]+1, current[1]], dire)
+                            self.aiLogic([current[0]+1, current[1]], dire, rem)
                             self.shipsP[i].location.remove([current[0]+1, current[1]])
                             if len(self.shipsP[i].location) == 0:
                                 self.shipsP[i].isDestroyed = True
                             break
             
-            if current[1]-1>=0 and [current[0], current[1]-1] not in self.aiMoves:
+            if current[1]-1>=0 and [current[0], current[1]-1] not in self.aiMoves and len(self.shipsP[rem].location)-1 > 0:
                 self.aiMoves.append([current[0], current[1]-1])
                 dire = 3
                 if self.gameBoardPD[current[0], current[1]-1] == UI.ship:
                     for i in range(5):
                         if [current[0], current[1]-1] in self.shipsP[i].location:
-                            self.aiLogic([current[0], current[1]-1], dire)
+                            self.aiLogic([current[0], current[1]-1], dire, rem)
                             self.shipsP[i].location.remove([current[0], current[1]-1])
                             if len(self.shipsP[i].location) == 0:
                                 self.shipsP[i].isDestroyed = True
                             break
             
-            if current[1]+1<self.gameSize and [current[0], current[1]+1] not in self.aiMoves:
+            if current[1]+1<self.gameSize and [current[0], current[1]+1] not in self.aiMoves and len(self.shipsP[rem].location)-1 > 0:
                 self.aiMoves.append([current[0], current[1]+1])
                 dire = 4
                 if self.gameBoardPD[current[0], current[1]+1] == UI.ship:
                     for i in range(5):
                         if [current[0], current[1]+1] in self.shipsP[i].location:
-                            self.aiLogic([current[0], current[1]+1], dire)
+                            self.aiLogic([current[0], current[1]+1], dire, rem)
                             self.shipsP[i].location.remove([current[0], current[1]+1])
                             if len(self.shipsP[i].location) == 0:
                                 self.shipsP[i].isDestroyed = True
@@ -275,7 +279,7 @@ class Battleship:
                 if self.gameBoardPD[current[0]-1, current[1]] == UI.ship:
                     for i in range(5):
                         if [current[0]-1, current[1]] in self.shipsP[i].location:
-                            self.aiLogic([current[0]-1, current[1]], dire)
+                            self.aiLogic([current[0]-1, current[1]], dire, rem)
                             self.shipsP[i].location.remove([current[0]-1, current[1]])
                             if len(self.shipsP[i].location) == 0:
                                 self.shipsP[i].isDestroyed = True
@@ -288,7 +292,7 @@ class Battleship:
                 if self.gameBoardPD[current[0]+1, current[1]] == UI.ship:
                     for i in range(5):
                         if [current[0]+1, current[1]] in self.shipsP[i].location:
-                            self.aiLogic([current[0]+1, current[1]], dire)
+                            self.aiLogic([current[0]+1, current[1]], dire, rem)
                             self.shipsP[i].location.remove([current[0]+1, current[1]])
                             if len(self.shipsP[i].location) == 0:
                                 self.shipsP[i].isDestroyed = True
@@ -301,7 +305,7 @@ class Battleship:
                 if self.gameBoardPD[current[0], current[1]-1] == UI.ship:
                     for i in range(5):
                         if [current[0], current[1]-1] in self.shipsP[i].location:
-                            self.aiLogic([current[0], current[1]-1], dire)
+                            self.aiLogic([current[0], current[1]-1], dire, rem)
                             self.shipsP[i].location.remove([current[0], current[1]-1])
                             if len(self.shipsP[i].location) == 0:
                                 self.shipsP[i].isDestroyed = True
@@ -314,7 +318,7 @@ class Battleship:
                 if self.gameBoardPD[current[0], current[1]+1] == UI.ship:
                     for i in range(5):
                         if [current[0], current[1]+1] in self.shipsP[i].location:
-                            self.aiLogic([current[0], current[1]+1], dire)
+                            self.aiLogic([current[0], current[1]+1], dire, rem)
                             self.shipsP[i].location.remove([current[0], current[1]+1])
                             if len(self.shipsP[i].location) == 0:
                                 self.shipsP[i].isDestroyed = True
@@ -400,4 +404,4 @@ def startGame(game):
     game.aiSetup()
     game.initialSetup()
     game.aiPlay()
-    game.playerPlay()
+    # game.playerPlay()
