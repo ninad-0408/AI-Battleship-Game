@@ -217,7 +217,6 @@ class Battleship:
 
             if check:
                 break
-        print(len(self.aiMoves))
     
     def aiLogic(self,current,direction,rem):
 
@@ -394,4 +393,4 @@ def startGame(game):
     game.aiSetup()
     game.initialSetup()
     game.aiPlay()
-    # game.playerPlay()
+    game.playerPlay()
