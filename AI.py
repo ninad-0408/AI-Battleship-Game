@@ -16,7 +16,7 @@ class Ship:
 
 class Battleship:
     def __init__(self):
-        self.gameSize = 10
+        self.gameSize = 8
         self.won = 0
         self.gameBoardPA = np.empty((self.gameSize,self.gameSize), np.str)
         self.gameBoardPD = np.empty((self.gameSize,self.gameSize), np.str)
@@ -67,7 +67,11 @@ class Battleship:
             print('Enter v if you want to place it vertically or h if you want to place it horizontally: ',end='')
             print(Fore.RESET)
             while 1:
-                self.shipsP[i].orientation = input().lower()
+                try:
+                    self.shipsP[i].orientation = input().lower()
+                except:
+                    print(Fore.RED + 'Invalid Input. Try again...' + Fore.RESET)
+                    continue
                 if self.shipsP[i].orientation == 'v':
                     break
                 elif self.shipsP[i].orientation == 'h':
