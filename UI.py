@@ -10,7 +10,7 @@ hit = '*'
 miss ='X'
 
 def clearScreen():
-    os.system('cls')
+    os.system('clear')
 
 def welcome():
     clearScreen()
@@ -27,7 +27,7 @@ def welcome():
         if n==1:
             printRules()
             print(Fore.CYAN)
-            os.system('pause')
+            input()
             print(Fore.RESET + '\n')
             break
         elif n==2:
